@@ -12,6 +12,9 @@ public class BloomFilterRan extends BloomFilter {
 		super(setSize,bitsPerElement);
 		BigInteger filterSize = BigInteger.valueOf(filterSize());
 		prime = filterSize.nextProbablePrime().intValue();
+		if(prime <0){
+			prime = prime*(-1);
+		}
 		Integer k = numHashes();
 		a = new Integer[k];
 		b = new Integer[k];
@@ -23,11 +26,12 @@ public class BloomFilterRan extends BloomFilter {
 	
 	protected Integer[] getKHashValues(String s) {
 		Integer[] hashValue = new Integer[numHashes()];
-		BigInteger filterSize = BigInteger.valueOf(filterSize());
-		Integer prime = filterSize.nextProbablePrime().intValue();
 		Integer hash = s.hashCode();
 		for (int i=0;i<numHashes();i++){
 			hashValue[i] = (a[i] + b[i]*hash) % prime;
+			if(hashValue[i] < 0){
+				hashValue[i] *= (-1);
+			}
 		}
 		return hashValue;
 	}
