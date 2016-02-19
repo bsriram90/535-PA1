@@ -1,7 +1,5 @@
 package bloomfilter;
 
-import java.util.BitSet;
-
 public class BloomFilterDet extends BloomFilter{
 	
 	BloomFilterDet(int setSize, int bitsPerElement) {
@@ -9,11 +7,16 @@ public class BloomFilterDet extends BloomFilter{
 	}
 	
 	private Integer[] getKHashValues(String s) {
-		Integer[] hashValue = new Integer[numHashes()];
+		Integer k = 4;
+		Integer[] hashValue = new Integer[k];
 		Long hashCode = fnvHash64Bit(s);
-		Byte hash = hashCode.byteValue();
-		
-		return null;
+		String binaryHash = Long.toBinaryString(hashCode);
+		Integer hashLength = (binaryHash.length())/k;
+		for (int i=0; i<k; i++) {
+			String binaryHashValue = binaryHash.substring(i*hashLength,(i*hashLength)+hashLength);
+			hashValue[i] = Integer.parseInt(binaryHashValue,2);
+		}
+		return hashValue;
 	}
 	
 	public long fnvHash64Bit(String s) {
