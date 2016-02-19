@@ -21,7 +21,7 @@ public class BloomFilterRan extends BloomFilter {
 		}
 	}
 	
-	private Integer[] getKHashValues(String s) {
+	protected Integer[] getKHashValues(String s) {
 		Integer[] hashValue = new Integer[numHashes()];
 		BigInteger filterSize = BigInteger.valueOf(filterSize());
 		Integer prime = filterSize.nextProbablePrime().intValue();

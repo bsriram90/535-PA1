@@ -24,7 +24,7 @@ public class BloomFilter {
 		counter++;
 	}
 	
-	private Integer[] getKHashValues(String s) {
+	protected Integer[] getKHashValues(String s) {
 		return null;
 	}
 

@@ -6,7 +6,7 @@ public class BloomFilterDet extends BloomFilter{
 		super(setSize,bitsPerElement);
 	}
 	
-	private Integer[] getKHashValues(String s) {
+	protected Integer[] getKHashValues(String s) {
 		Integer k = 4;
 		Integer[] hashValue = new Integer[k];
 		Long hashCode = fnvHash64Bit(s);
