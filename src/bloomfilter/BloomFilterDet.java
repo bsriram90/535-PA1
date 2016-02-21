@@ -7,7 +7,7 @@ public class BloomFilterDet extends BloomFilter{
 	}
 	
 	protected Integer[] getKHashValues(String s) {
-		Integer k = 4;
+		Integer k = numHashes();
 		Integer[] hashValue = new Integer[k];
 		Long hashCode = fnvHash64Bit(s);
 		String binaryHash = Long.toBinaryString(hashCode);
