@@ -35,7 +35,7 @@ public class BloomFilter {
 	public boolean appears(String s) {
 		Integer[] hashValues = getKHashValues(s);
 		for (Integer hash : hashValues) {
-			if ( !filter.get(hash)) {
+			if ( !filter.get(hash%filterSize())) {
 				return false;
 			}
 		}
