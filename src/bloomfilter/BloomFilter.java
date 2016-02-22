@@ -1,5 +1,6 @@
 package bloomfilter;
 
+import java.math.BigInteger;
 import java.util.BitSet;
 
 public class BloomFilter {
@@ -17,14 +18,14 @@ public class BloomFilter {
 	}
 	
 	public void add(String s) {
-		Long[] hashValues = getKHashValues(s);
-		for (Long hash : hashValues) {
-			filter.set((int) (hash%filterSize()));
+		BigInteger[] hashValues = getKHashValues(s);
+		for (BigInteger hash : hashValues) {
+			filter.set((hash.mod(BigInteger.valueOf(filterSize()))).intValue());
 		}
 		counter++;
 	}
 	
-	protected Long[] getKHashValues(String s) {
+	protected BigInteger[] getKHashValues(String s) {
 		return null;
 	}
 
@@ -33,9 +34,9 @@ public class BloomFilter {
 	}
 	
 	public boolean appears(String s) {
-		Long[] hashValues = getKHashValues(s);
-		for (Long hash : hashValues) {
-			if ( !filter.get(new Long(hash%filterSize()).intValue())) {
+		BigInteger[] hashValues = getKHashValues(s);
+		for (BigInteger hash : hashValues) {
+			if ( !filter.get((hash.mod(BigInteger.valueOf(filterSize()))).intValue())) {
 				return false;
 			}
 		}
@@ -43,7 +44,7 @@ public class BloomFilter {
 	}
 	
 	public int numHashes() {
-		int numHashes = (int) (Math.log(2)*(new Double(filterSize())/new Double(this.setSize)));
+		int numHashes = (int) Math.ceil((Math.log(2)*(new Double(filterSize())/new Double(this.setSize))));
 		return numHashes;
 	}
 	

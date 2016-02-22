@@ -24,14 +24,11 @@ public class BloomFilterRan extends BloomFilter {
 		}
 	}
 	
-	protected Long[] getKHashValues(String s) {
-		Long[] hashValue = new Long[numHashes()];
+	protected BigInteger[] getKHashValues(String s) {
+		BigInteger[] hashValue = new BigInteger[numHashes()];
 		Integer hash = s.hashCode();
 		for (int i=0;i<numHashes();i++){
-			hashValue[i] = new Long((a[i] + b[i]*hash) % prime);
-			if(hashValue[i] < 0){
-				hashValue[i] *= (-1);
-			}
+			hashValue[i] = BigInteger.valueOf(Math.abs((a[i] + b[i]*hash) % prime));
 		}
 		return hashValue;
 	}
