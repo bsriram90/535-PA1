@@ -47,6 +47,9 @@ public class BloomJoin {
 				String line = bufReader.readLine();
 				String [] tuple = new String[2];
 				StringTokenizer tokenizer = new StringTokenizer(line);
+				if(fileName.contains(".csv") ){
+					tokenizer = new StringTokenizer(line, ",");
+				}
 				if(tokenizer.countTokens() == 2){
 					tuple[0] = tokenizer.nextToken();
 					tuple[1] = tokenizer.nextToken();
@@ -109,7 +112,10 @@ public class BloomJoin {
 	
 	public static void main(String[] args) {
 		BloomJoin bJoin = new BloomJoin();
-		bJoin.joinRelations("/Users/nishanthsivakumar/Desktop/Relation1.txt", "/Users/nishanthsivakumar/Desktop/Relation2.txt", "/Users/nishanthsivakumar/Desktop/Relation3.txt");
+		bJoin.joinRelations("/Users/nishanthsivakumar/Desktop/Relation1.txt", 
+				"/Users/nishanthsivakumar/Desktop/Relation2.txt", 
+				"/Users/nishanthsivakumar/Desktop/Relation3.txt");
+		
 	}
 
 }
