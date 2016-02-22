@@ -1,8 +1,6 @@
 package bloomfilter;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -23,7 +21,7 @@ public class FalsePositives {
 		int bFilterLength = 0;
 		int searchPositives = 0;
 		//create input list 
-		permutation("","abcdefg");
+		permutation("","abcdefghi");
 		System.out.println("Input Set Size - "+inputSet.size());
 		//Insert into bloom filter only alternative elements
 		Iterator<String> setIterator = inputSet.iterator();
@@ -68,11 +66,13 @@ public class FalsePositives {
 	}
 	
 	public static void main(String[] args) {
-		FalsePositives fPositiveFNV = new FalsePositives(new BloomFilterDet(6000,8));
+		FalsePositives fPositiveFNV = new FalsePositives(new BloomFilterDet(20000,8));
 		System.out.println(fPositiveFNV.getFalsePositiveRate());
 		
-		FalsePositives fPositiveRND = new FalsePositives(new BloomFilterRan(6000,4));
+		FalsePositives fPositiveRND = new FalsePositives(new BloomFilterRan(20000,8));
 		System.out.println(fPositiveRND.getFalsePositiveRate());
+		
+		
 		
 	}
 
