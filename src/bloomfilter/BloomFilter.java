@@ -23,6 +23,7 @@ public class BloomFilter {
 			filter.set((hash.mod(BigInteger.valueOf(filterSize()))).intValue());
 		}
 		counter++;
+		
 	}
 	
 	protected BigInteger[] getKHashValues(String s) {

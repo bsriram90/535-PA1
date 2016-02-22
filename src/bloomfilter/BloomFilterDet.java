@@ -4,6 +4,8 @@ import java.math.BigInteger;
 
 public class BloomFilterDet extends BloomFilter{
 	
+	
+	
 	BloomFilterDet(int setSize, int bitsPerElement) {
 		super(setSize,bitsPerElement);
 	}
@@ -13,10 +15,10 @@ public class BloomFilterDet extends BloomFilter{
 		BigInteger[] hashValue = new BigInteger[k];
 		Long hashCode = fnvHash64Bit(s);
 		String binaryHash = Long.toBinaryString(hashCode);
-		Integer hashLength = (binaryHash.length())/k;
 		for (int i=0; i<k; i++) {
-			String binaryHashValue = binaryHash.substring(i*hashLength,(i*hashLength)+hashLength);
-			hashValue[i] = new BigInteger(binaryHashValue,2);
+			String binaryHashValue = binaryHash.substring(i,31+i);
+			BigInteger preHash = new BigInteger(binaryHashValue,2);
+			hashValue[i] = preHash.add(BigInteger.valueOf(1000 * i));
 		}
 		return hashValue;
 	}
