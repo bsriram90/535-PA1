@@ -53,13 +53,14 @@ public class FalsePositives {
 		//Run through the list again and check for presense of all elements
 		setIterator = notInsertedSet.iterator();
 		while(setIterator.hasNext()){
-			if(bloomFilter.appears(setIterator.next())){
+			String s = setIterator.next();
+			if(bloomFilter.appears(s)){
 				searchPositives++;
 			}
 		}
 		//calculate False Positives
-		System.out.println("False Positives - "+searchPositives);
-		System.out.println("Input Length - "+notInsertedSet.size());
+		//System.out.println("False Positives - "+searchPositives);
+		//System.out.println("Input Length - "+notInsertedSet.size());
 		fpCount = (float)searchPositives/notInsertedSet.size();
 		return fpCount;
 	}
@@ -83,14 +84,17 @@ public class FalsePositives {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("Determinitic Bloom filter:");
-		FalsePositives fPositiveFNV = new FalsePositives(new BloomFilterDet(50000,10));
-		System.out.println("False Positive rate - " + fPositiveFNV.getFalsePositiveRate());
-		
-		System.out.println("Random Bloom filter:");
-		FalsePositives fPositiveRND = new FalsePositives(new BloomFilterRan(50000,10));
-		System.out.println("False Positive rate - " + fPositiveRND.getFalsePositiveRate());
-		
+		Integer setSize = 50000;
+		Integer[] bitSizes = new Integer[]{4,8,10};
+		for(Integer elementsPerBit : bitSizes) {
+			System.out.println("Determinitic Bloom filter with "+ elementsPerBit + " bits per element and " + setSize + " set size:");
+			FalsePositives fPositiveFNV = new FalsePositives(new BloomFilterDet(setSize,elementsPerBit));
+			System.out.println("False Positive rate - " + fPositiveFNV.getFalsePositiveRate());
+			
+			System.out.println("Random Bloom filter with "+ elementsPerBit + " bits per element and " + setSize + " set size:");
+			FalsePositives fPositiveRND = new FalsePositives(new BloomFilterRan(setSize,elementsPerBit));
+			System.out.println("False Positive rate - " + fPositiveRND.getFalsePositiveRate());
+		}
 		
 		
 	}
