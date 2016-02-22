@@ -16,7 +16,7 @@ public class BloomFilterDet extends BloomFilter{
 		Long hashCode = fnvHash64Bit(s);
 		String binaryHash = Long.toBinaryString(hashCode);
 		for (int i=0; i<k; i++) {
-			String binaryHashValue = binaryHash.substring(i,32+i);
+			String binaryHashValue = binaryHash.substring(i,31+i);
 			BigInteger preHash = new BigInteger(binaryHashValue,2);
 			hashValue[i] = preHash.add(BigInteger.valueOf(1000 * i));
 		}
