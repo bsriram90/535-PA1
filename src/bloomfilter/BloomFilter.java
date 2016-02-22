@@ -17,14 +17,14 @@ public class BloomFilter {
 	}
 	
 	public void add(String s) {
-		Integer[] hashValues = getKHashValues(s);
-		for (Integer hash : hashValues) {
+		Long[] hashValues = getKHashValues(s);
+		for (Long hash : hashValues) {
 			filter.set((int) (hash%filterSize()));
 		}
 		counter++;
 	}
 	
-	protected Integer[] getKHashValues(String s) {
+	protected Long[] getKHashValues(String s) {
 		return null;
 	}
 
@@ -33,9 +33,9 @@ public class BloomFilter {
 	}
 	
 	public boolean appears(String s) {
-		Integer[] hashValues = getKHashValues(s);
-		for (Integer hash : hashValues) {
-			if ( !filter.get(hash%filterSize())) {
+		Long[] hashValues = getKHashValues(s);
+		for (Long hash : hashValues) {
+			if ( !filter.get(new Long(hash%filterSize()).intValue())) {
 				return false;
 			}
 		}

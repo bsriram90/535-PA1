@@ -6,15 +6,15 @@ public class BloomFilterDet extends BloomFilter{
 		super(setSize,bitsPerElement);
 	}
 	
-	protected Integer[] getKHashValues(String s) {
+	protected Long[] getKHashValues(String s) {
 		Integer k = numHashes();
-		Integer[] hashValue = new Integer[k];
+		Long[] hashValue = new Long[k];
 		Long hashCode = fnvHash64Bit(s);
 		String binaryHash = Long.toBinaryString(hashCode);
 		Integer hashLength = (binaryHash.length())/k;
 		for (int i=0; i<k; i++) {
 			String binaryHashValue = binaryHash.substring(i*hashLength,(i*hashLength)+hashLength);
-			hashValue[i] = Integer.parseInt(binaryHashValue,2);
+			hashValue[i] = Long.parseLong(binaryHashValue,2);
 		}
 		return hashValue;
 	}

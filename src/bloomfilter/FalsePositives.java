@@ -66,10 +66,10 @@ public class FalsePositives {
 	}
 	
 	public static void main(String[] args) {
-		FalsePositives fPositiveFNV = new FalsePositives(new BloomFilterDet(20000,8));
+		FalsePositives fPositiveFNV = new FalsePositives(new BloomFilterDet(100000,4));
 		System.out.println(fPositiveFNV.getFalsePositiveRate());
 		
-		FalsePositives fPositiveRND = new FalsePositives(new BloomFilterRan(20000,8));
+		FalsePositives fPositiveRND = new FalsePositives(new BloomFilterRan(100000,4));
 		System.out.println(fPositiveRND.getFalsePositiveRate());
 		
 		
