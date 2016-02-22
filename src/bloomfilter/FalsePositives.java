@@ -24,8 +24,14 @@ public class FalsePositives {
 	}
 
 	private static void generateInputs() {
-		randomStrings(50000);
-		//Insert into bloom filter only alternative elements
+		SecureRandom random = new SecureRandom();
+		while(inputSet.size() < 50000) {
+			BigInteger rand = new BigInteger(130, random);
+			if(!generated.contains(rand)){
+				generated.add(rand);
+				inputSet.add(rand.toString(32));
+			}
+		}
 		Iterator<String> setIterator = inputSet.iterator();
 		int i=0;
 		while(setIterator.hasNext()){
@@ -46,11 +52,7 @@ public class FalsePositives {
 		}
 		float fpCount = 0;
 		int searchPositives = 0;
-		//create input list 
-		//permutation("","abcdefghi");
 		
-		setIterator = inputSet.iterator();
-		//Run through the list again and check for presense of all elements
 		setIterator = notInsertedSet.iterator();
 		while(setIterator.hasNext()){
 			String s = setIterator.next();
@@ -58,33 +60,12 @@ public class FalsePositives {
 				searchPositives++;
 			}
 		}
-		//calculate False Positives
-		//System.out.println("False Positives - "+searchPositives);
-		//System.out.println("Input Length - "+notInsertedSet.size());
 		fpCount = (float)searchPositives/notInsertedSet.size();
 		return fpCount;
 	}
-
-	private static void randomStrings(int i) {
-		SecureRandom random = new SecureRandom();
-		while(inputSet.size() < i) {
-			BigInteger rand = new BigInteger(130, random);
-			if(!generated.contains(rand)){
-				generated.add(rand);
-				inputSet.add(rand.toString(32));
-			}
-		}
-	}
-
-	public int getInputListSize(){
-		if(inputSet != null){
-			return inputSet.size();
-		}
-		return -1;
-	}
 	
 	public static void main(String[] args) {
-		Integer setSize = 50000;
+		Integer setSize = 10000;
 		Integer[] bitSizes = new Integer[]{4,8,10};
 		for(Integer elementsPerBit : bitSizes) {
 			System.out.println("Determinitic Bloom filter with "+ elementsPerBit + " bits per element and " + setSize + " set size:");
