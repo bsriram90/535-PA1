@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
 public class BloomJoin {
 	
 	private BloomFilter createBloomFilter(Set<String> relation){
-		BloomFilter bFilter = new BloomFilterRan(relation.size()/4, 8);
+		BloomFilter bFilter = new BloomFilterRan(relation.size()/4, 10);
 
 		Iterator<String> colIterator = relation.iterator();
 		while(colIterator.hasNext()){
@@ -29,12 +29,14 @@ public class BloomJoin {
 	private HashMap<String,List<String>> getReducedMap(HashMap<String,List<String>> relation, BloomFilter bFilter){
 		HashMap<String,List<String>> reducedMap = new HashMap<>();
 		Iterator<String> colIterator = relation.keySet().iterator();
+		System.out.println(relation.size());
 		while(colIterator.hasNext()){
 			String key = colIterator.next();
 			if(bFilter.appears(key)){
 				reducedMap.put(key, relation.get(key));
 			}
 		}
+		System.out.println(reducedMap.size());
 		return reducedMap;
 	}
 	
@@ -112,9 +114,9 @@ public class BloomJoin {
 	
 	public static void main(String[] args) {
 		BloomJoin bJoin = new BloomJoin();
-		bJoin.joinRelations("/Users/nishanthsivakumar/Desktop/Relation1.txt", 
-				"/Users/nishanthsivakumar/Desktop/Relation2.txt", 
-				"/Users/nishanthsivakumar/Desktop/Relation3.txt");
+		bJoin.joinRelations("C://Users//Sriram//Desktop//Study//535//PA1//Relation1.txt", 
+				"C://Users//Sriram//Desktop//Study//535//PA1//Relation2.txt", 
+				"C://Users//Sriram//Desktop//Study//535//PA1//Relation3.txt");
 		
 	}
 
